@@ -1,3 +1,5 @@
+@import './fonts.scss';
+
 *,
 button:focus {
 	outline: none;
@@ -17,6 +19,7 @@ html {
 }
 
 body {
+	@extend .font-text;
 	font-size: 1.6rem;
 }
 

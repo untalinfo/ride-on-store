@@ -92,6 +92,7 @@
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "react-scripts": "^5.0.1",
+    "react-test-renderer": "^19.0.0",
     "redux-mock-store": "^1.5.4",
     "terser": "^5.20.0"
   }
