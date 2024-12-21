@@ -1,14 +1,10 @@
 @import 'mixins';
 
-$primary: #244ef1;
-$secondary: #0b1d2e;
-$success: #04aa5e;
-$warning: #ffb84b;
-$info: #d3dcfc;
-$error: #e30042;
-$black: #1f1f1f;
+$primary: #a10807;
+$secondary: #000000;
+$error: $primary;
 $white: #ffffff;
-$neutral: #bfbfbf;
+$neutral: #928b8b;
 
 $fontColor: $secondary;
 $bgBody: $white;
