@@ -1,0 +1,39 @@
+@import '../../../../shared/application/theme/colors.scss';
+
+.home-page-container {
+	width: 100%;
+	padding: 40px 20px;
+
+	> .hero-container {
+		margin: 20px 0;
+
+		> .hero-description {
+			@extend .color-neutral;
+			font-size: 1.6rem;
+		}
+	}
+
+	> .popular-products {
+		display: flex;
+		flex-direction: column;
+
+		> .text-container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+
+			> .see-all {
+				@extend .color-neutral;
+				cursor: pointer;
+				font-size: 1.2rem;
+			}
+		}
+
+		> .product-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 20px;
+		}
+	}
+}

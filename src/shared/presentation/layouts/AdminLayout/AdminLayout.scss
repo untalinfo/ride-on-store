@@ -1,7 +1,6 @@
 @import '../../../application/theme/colors.scss';
 
 .admin-layout-container {
-	@include centered-display-flex;
-	flex-direction: column;
+	position: relative;
 	width: 100%;
 }
