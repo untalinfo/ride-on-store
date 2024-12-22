@@ -5,7 +5,7 @@ import { ARROW_RIGHT_ICON } from '../../../application/constants/icons';
 import { history } from '../../../application/helpers/history';
 import { formatNumberWithDots } from '../../../application/helpers/common-functions';
 
-const ProductCard = ({ isMini = false, urlRedirection, productImg, productName, productPrice }) => {
+const ProductCard = ({ isMini, urlRedirection, productImg, productName, productPrice }) => {
 	const handleRedirection = () => {
 		history.push(urlRedirection);
 	};
@@ -17,8 +17,8 @@ const ProductCard = ({ isMini = false, urlRedirection, productImg, productName, 
 				{!isMini && (
 					<div className="product-card__info">
 						<div className="text-container">
-							<h3 className="product-name">Product name</h3>
-							<p className="price">{`$ ${formatNumberWithDots('8000000')}`}</p>
+							<h3 className="product-name">{productName}</h3>
+							<p className="price">{`$ ${formatNumberWithDots(productPrice)}`}</p>
 						</div>
 						<i className={`${ARROW_RIGHT_ICON} icon-redirection`} onClick={handleRedirection} />
 					</div>
@@ -26,7 +26,7 @@ const ProductCard = ({ isMini = false, urlRedirection, productImg, productName, 
 			</div>
 			{isMini && (
 				<div className="product-card-mini__info">
-					<p className="product-name">Product N</p>
+					<p className="product-name">{productName}</p>
 				</div>
 			)}
 		</div>

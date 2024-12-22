@@ -1,6 +1,7 @@
 @import '../../../application/theme/colors.scss';
 
 .bottom-menu-container {
+	@extend .bg-white;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;

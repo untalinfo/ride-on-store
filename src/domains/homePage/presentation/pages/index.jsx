@@ -13,15 +13,19 @@ const HomePage = () => {
 				<p className="hero-description">The best & favorite motorcycle</p>
 			</section>
 			<CategoryList />
+			<div className="corousel-container">
+				<ProductCard productName="Ichiban Electric 2032" productPrice="34000000" urlRedirection />
+			</div>
+
 			<div className="popular-products">
 				<div className="text-container">
-					<h2>Popular</h2>
+					<p className="popular">Popular</p>
 					<p className="see-all">See all</p>
 				</div>
 				<div className="product-grid">
-					<ProductCard name="Ichiban Electric 2032" price="34,000,000" />
-					<ProductCard name="Ichiban Electric 2032" price="34,000,000" />
-					<ProductCard name="Ichiban Electric 2032" price="34,000,000" />
+					<ProductCard isMini={true} productName="CXTR" />
+					<ProductCard isMini={true} productName="MBWS" />
+					<ProductCard isMini={true} productName="Jaguar" />
 					{/* Añade más tarjetas de producto */}
 				</div>
 			</div>

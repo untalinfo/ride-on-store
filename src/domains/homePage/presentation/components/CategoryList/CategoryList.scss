@@ -3,7 +3,7 @@
 .category-list {
 	@include centered-display-flex;
 	@extend .color-neutral;
-	justify-content: space-evenly;
+	justify-content: space-around;
 
 	> .category-item {
 		cursor: pointer;
