@@ -14,7 +14,7 @@ const HomePage = () => {
 			</section>
 			<CategoryList />
 			<div className="corousel-container">
-				<ProductCard productName="Ichiban Electric 2032" productPrice="34000000" urlRedirection />
+				<ProductCard productName="Ichiban Electric 2032" productPrice="34000000" urlRedirection={'/'} />
 			</div>
 
 			<div className="popular-products">

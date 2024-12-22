@@ -9,7 +9,7 @@ const CategoryList = () => {
 		setCategorySelected(id);
 	};
 	return (
-		<div className="category-list">
+		<div className="category-list" data-testid="category-list">
 			{CATEGORIES.map((category) => (
 				<div key={category.id} className="category-item" onClick={() => onCategoryClick(category.id)}>
 					<p className={`category-name ${categorySelected === category.id ? 'selected' : ''} `}>{category.name}</p>
