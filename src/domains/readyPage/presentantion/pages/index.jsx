@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { images } from './images';
 import './ReadyPage.scss';
+import { history } from '../../../../shared/application/helpers/history';
+import { homePageRoute } from '../../../homePage/infrastructure/routing/routes';
 
 const ReadyPage = () => {
 	const [currentFrame, setCurrentFrame] = useState(0);
@@ -48,11 +50,20 @@ const ReadyPage = () => {
 		};
 	}, [currentFrame]);
 
+	const handleRedirection = () => {
+		history.push(homePageRoute);
+	};
+
 	return (
 		<main className="container-ready-page">
 			<section className="section-ready-page">
 				<h1 className="title-page">Find a perfect & favorite moto for you.</h1>
-				<img className="icon-next" src="/src/domains/readyPage/application/constants/imgs/next-icon.svg" alt="" />
+				<img
+					onClick={handleRedirection}
+					className="icon-next"
+					src="/src/domains/readyPage/application/constants/imgs/next-icon.svg"
+					alt=""
+				/>
 			</section>
 		</main>
 	);

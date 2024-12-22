@@ -1,0 +1,56 @@
+@import '../../../../shared/application/theme/colors.scss';
+@import '../../../../shared/application/theme/fonts.scss';
+
+.home-page-container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+	padding: 40px 20px;
+
+	> .hero-container {
+		> .hero-description {
+			@extend .color-neutral;
+			font-size: 1.6rem;
+		}
+	}
+
+	> .corousel-container {
+		align-self: center;
+		margin: 20px;
+	}
+
+	> .popular-products {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 100%;
+
+		> .text-container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+
+			> .popular {
+				@extend .font-title;
+				font-size: 2rem;
+				font-weight: 500;
+			}
+
+			> .see-all {
+				@extend .color-neutral;
+				cursor: pointer;
+				font-size: 1.2rem;
+			}
+		}
+
+		> .product-grid {
+			align-self: center;
+			display: flex;
+			justify-content: center;
+			gap: 20px;
+			width: 100%;
+		}
+	}
+}

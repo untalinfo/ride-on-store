@@ -1,2 +1,10 @@
-.admin-layout {
+@import '../../../application/theme/colors.scss';
+
+.admin-layout-container {
+	position: relative;
+	width: 100%;
+
+	> .section-container {
+		padding-bottom: 45px;
+	}
 }

@@ -1,0 +1,29 @@
+@import '../../../../../shared/application/theme/colors.scss';
+
+.category-list {
+	@include centered-display-flex;
+	@extend .color-neutral;
+	justify-content: space-around;
+
+	> .category-item {
+		cursor: pointer;
+		> .category-name {
+			&.selected {
+				@include centered-display-flex;
+				@extend .color-secondary;
+				flex-direction: column;
+
+				&::after {
+					@extend .bg-primary;
+					content: '';
+					display: flex;
+					width: 6px;
+					height: 6px;
+					border-radius: 100%;
+					margin-top: 24px;
+					position: absolute;
+				}
+			}
+		}
+	}
+}
