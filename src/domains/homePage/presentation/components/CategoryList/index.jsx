@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { CATEGORIES } from '../../../application/constants/categories';
+import './CategoryList.scss';
 
 const CategoryList = () => {
+	const [categorySelected, setCategorySelected] = useState(1);
+
+	const onCategoryClick = (id) => {
+		setCategorySelected(id);
+	};
 	return (
 		<div className="category-list">
-			<h2>Categories</h2>
-			<div className="category-grid">
-				<div className="category-card">
-					<img src="https://via.placeholder.com/150" alt="Category" />
-					<p>Category</p>
+			{CATEGORIES.map((category) => (
+				<div key={category.id} className="category-item" onClick={() => onCategoryClick(category.id)}>
+					<p className={`category-name ${categorySelected === category.id ? 'selected' : ''} `}>{category.name}</p>
 				</div>
-				{/* Add more category cards */}
-			</div>
+			))}
 		</div>
 	);
 };
