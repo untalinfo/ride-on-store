@@ -1,0 +1,28 @@
+@import '../../../application/theme/colors.scss';
+@import '../../../application/theme/fonts.scss';
+
+.button-container {
+	@extend .bg-primary;
+	@extend .font-title;
+	@include centered-display-flex;
+	padding: 12px 0;
+	border: none;
+	border-radius: 15px;
+	color: white;
+	font-size: 32px;
+	line-height: 32px;
+	cursor: pointer;
+	column-gap: 12px;
+	transition: background-color 0.3s;
+	text-align: center;
+	width: 100%;
+
+	&:hover {
+		background-color: #0056b3;
+	}
+
+	&:disabled {
+		background-color: #cccccc;
+		cursor: not-allowed;
+	}
+}
