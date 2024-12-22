@@ -3,6 +3,7 @@ import Navbar from '../../../../shared/presentation/components/Navbar';
 import CategoryList from '../components/CategoryList';
 import ProductCard from '../../../../shared/presentation/components/ProductCard';
 import './HomePage.scss';
+import { productDetailPageRoute } from '../../../productDetail/infrastructure/routing/routes';
 
 const HomePage = () => {
 	return (
@@ -14,7 +15,11 @@ const HomePage = () => {
 			</section>
 			<CategoryList />
 			<div className="corousel-container">
-				<ProductCard productName="Ichiban Electric 2032" productPrice="34000000" urlRedirection={'/'} />
+				<ProductCard
+					productName="Ichiban Electric 2032"
+					productPrice="34000000"
+					urlRedirection={productDetailPageRoute(1)}
+				/>
 			</div>
 
 			<div className="popular-products">
