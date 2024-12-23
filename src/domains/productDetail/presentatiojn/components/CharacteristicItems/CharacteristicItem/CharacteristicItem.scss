@@ -1,0 +1,23 @@
+@import '../../../../../../shared/application/theme/colors.scss';
+
+.characteristic-item-container {
+	@include centered-display-flex;
+	flex-direction: column;
+	row-gap: 12px;
+
+	> .characteristic-img {
+		border-radius: 10px;
+		border: 1px solid red;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 64px;
+		width: 60px;
+
+		> .img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+}

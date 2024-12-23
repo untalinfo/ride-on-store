@@ -1,0 +1,13 @@
+@import '../../../../shared/application/theme/colors.scss';
+
+.button-back {
+	background: none;
+	border: none;
+	font-size: 3rem;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		@extend .color-primary;
+	}
+}
