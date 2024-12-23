@@ -1,0 +1,34 @@
+@import '../../../../../shared/application/theme/colors.scss';
+@import '../../../../../shared/application/theme/fonts.scss';
+
+.summary-table-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-weight: 300;
+	width: 100%;
+
+	> .left-table {
+		display: flex;
+		flex-direction: column;
+		row-gap: 6px;
+		> .product-name {
+			@extend .font-title;
+			font-size: 1.6rem;
+			font-weight: 600;
+		}
+	}
+
+	> .right-table {
+		display: flex;
+		flex-direction: column;
+		text-align: right;
+		row-gap: 6px;
+		> .total-payment {
+			@extend .font-title;
+			@extend .color-primary;
+			font-size: 1.6rem;
+			font-weight: 600;
+		}
+	}
+}
