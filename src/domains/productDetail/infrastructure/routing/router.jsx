@@ -4,7 +4,7 @@ import AdminLayout from '../../../../shared/presentation/layouts/AdminLayout';
 import { productDetailPageRoute } from './routes';
 import ProductDetailPage from '../../presentatiojn/pages';
 
-const exampleRouter = {
+const productDetailRouter = {
 	layout: AdminLayout,
 	router: [
 		{
@@ -16,4 +16,4 @@ const exampleRouter = {
 	],
 };
 
-export default exampleRouter;
+export default productDetailRouter;

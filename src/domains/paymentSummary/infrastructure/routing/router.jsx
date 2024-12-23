@@ -1,19 +1,19 @@
 // import React from 'react';
 import { UnauthenticatedRoute } from '../../../../shared/presentation/redirect-route';
 import AdminLayout from '../../../../shared/presentation/layouts/AdminLayout';
-import { homePageRoute } from './routes';
-import HomePage from '../../presentation/pages';
+import { paymentSummaryRoute } from './routes';
+import PaymentSummaryPage from '../../presentation/pages';
 
-const homePageRouter = {
+const paymentSummaryRouter = {
 	layout: AdminLayout,
 	router: [
 		{
-			path: homePageRoute,
-			page: HomePage,
+			path: paymentSummaryRoute(),
+			page: PaymentSummaryPage,
 			routeComponent: UnauthenticatedRoute,
 			layout: AdminLayout,
 		},
 	],
 };
 
-export default homePageRouter;
+export default paymentSummaryRouter;
