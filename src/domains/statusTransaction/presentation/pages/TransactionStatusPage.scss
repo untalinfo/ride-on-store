@@ -1,0 +1,30 @@
+@import '../../../../shared/application/theme/colors.scss';
+
+.status-page-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	gap: 20px;
+
+	> .title {
+		font-size: 2.5rem;
+		font-weight: 600;
+	}
+
+	> .description {
+		font-size: 1.6rem;
+		font-weight: 500;
+	}
+
+	> .redirection {
+		font-size: 1.6rem;
+		font-weight: 200;
+	}
+
+	&.failed {
+		@extend .color-white;
+		@extend .bg-primary;
+	}
+}
