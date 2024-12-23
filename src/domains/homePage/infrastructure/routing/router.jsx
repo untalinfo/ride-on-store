@@ -4,7 +4,7 @@ import AdminLayout from '../../../../shared/presentation/layouts/AdminLayout';
 import { homePageRoute } from './routes';
 import HomePage from '../../presentation/pages';
 
-const exampleRouter = {
+const homePageRouter = {
 	layout: AdminLayout,
 	router: [
 		{
@@ -16,4 +16,4 @@ const exampleRouter = {
 	],
 };
 
-export default exampleRouter;
+export default homePageRouter;

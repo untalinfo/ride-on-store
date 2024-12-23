@@ -5,7 +5,7 @@ import { readyPageRoute } from './routes';
 // import { UnauthenticatedRoute } from '../../../../shared/presentation/redirect-route';
 import ReadyPage from '../../presentantion/pages';
 
-const exampleRouter = {
+const readyPageRouter = {
 	layout: AdminLayout,
 	router: [
 		{
@@ -17,4 +17,4 @@ const exampleRouter = {
 	],
 };
 
-export default exampleRouter;
+export default readyPageRouter;
