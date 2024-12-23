@@ -1,0 +1,6 @@
+@import '../../../../../shared/application/theme/colors.scss';
+
+.characteristic-items-container {
+	@include centered-display-flex;
+	justify-content: space-evenly;
+}

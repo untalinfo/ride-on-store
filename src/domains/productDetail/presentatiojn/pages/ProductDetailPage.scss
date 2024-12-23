@@ -1,0 +1,53 @@
+@import '../../../../shared/application/theme/colors.scss';
+@import '../../../../shared/application/theme/fonts.scss';
+
+.product-detail-page {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+
+	> .product-description {
+		padding: 0 20px;
+	}
+
+	> .price-version {
+		@include centered-display-flex;
+		column-gap: 16px;
+
+		> .left-container {
+			> .price {
+				@extend .font-title;
+				font-size: 2.4rem;
+				font-weight: 600;
+			}
+			> .text {
+				@extend .color-neutral;
+				@extend .font-title;
+				font-size: 1.4rem;
+				font-weight: 300;
+			}
+		}
+
+		> .right-container {
+			> .text {
+				@extend .color-neutral-800s;
+				@extend .font-title;
+				font-size: 1.6rem;
+				font-weight: 400;
+			}
+			> .version {
+				@extend .font-title;
+				display: flex;
+				align-items: center;
+				font-size: 1.6rem;
+				font-weight: 400;
+			}
+		}
+	}
+
+	> .button-product-container {
+		padding: 0 32px;
+		width: 100%;
+		margin-bottom: 46px;
+	}
+}
