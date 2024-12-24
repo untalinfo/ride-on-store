@@ -6,7 +6,11 @@ import ButtonBack from '../../../../../shared/presentation/components/ButtonBack
 const HeroDetails = ({ product }) => {
 	return (
 		<div className="hero-details-container">
-			<img src={product.image || 'https://via.placeholder.com/150'} alt={product.name} className="product-img" />
+			<img
+				src={product.image || 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban2.png'}
+				alt={product.name}
+				className="product-img"
+			/>
 			<section className="hero-details">
 				<ButtonBack />
 				<div className="hero-stock-contianer">

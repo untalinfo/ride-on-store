@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Button.scss';
 
-const Button = ({ label, onClick, type = 'button', className = '', leftIcon, rightIcon }) => {
+const Button = ({ label, onClick, type = 'button', className = '', leftIcon, rightIcon, children }) => {
 	return (
 		<button type={type} className={`button-container ${className}`} onClick={onClick}>
 			{leftIcon && <i className={leftIcon} />}
-			<p>{label}</p>
+			<p>{label || children}</p>
 			{rightIcon && <i className={rightIcon} />}
 		</button>
 	);
@@ -19,6 +19,7 @@ Button.propTypes = {
 	className: PropTypes.string,
 	leftIcon: PropTypes.string,
 	rightIcon: PropTypes.string,
+	children: PropTypes.node,
 };
 
 export default Button;

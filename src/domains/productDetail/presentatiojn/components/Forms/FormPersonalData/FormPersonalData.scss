@@ -1,0 +1,25 @@
+@import '../../../../../../shared/application/theme/colors.scss';
+
+.form-personal-data-container {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-top: 1rem;
+
+	> .title-form {
+		@extend .color-primary;
+		font-weight: 500;
+		margin-bottom: 12px;
+	}
+
+	> .form-button-container {
+		align-self: center;
+		margin-top: 15px;
+		width: 70%;
+
+		.text-button {
+			font-size: 1.4rem;
+			font-weight: 500;
+		}
+	}
+}

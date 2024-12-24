@@ -10,7 +10,7 @@ const BottomMenu = () => {
 	return (
 		<nav className="bottom-menu-container">
 			<div className="menu-item" onClick={handleRedirectHome}>
-				<img className="icon" src="/src/shared/application/constants/imgs/home-icon.svg" alt="" />
+				<img className="icon" src="https://ride-on-store.s3.us-east-2.amazonaws.com/home-icon.svg" alt="" />
 				Home
 			</div>
 		</nav>
