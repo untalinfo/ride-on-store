@@ -7,7 +7,7 @@
 
 	> .characteristic-img {
 		border-radius: 10px;
-		border: 1px solid red;
+		border: 1px solid rgba($color: #928b8b, $alpha: 0.2);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -15,8 +15,8 @@
 		width: 60px;
 
 		> .img {
-			width: 100%;
-			height: 100%;
+			width: 30px;
+			height: auto;
 			object-fit: cover;
 		}
 	}

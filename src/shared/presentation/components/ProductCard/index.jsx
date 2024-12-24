@@ -13,7 +13,11 @@ const ProductCard = ({ isMini, urlRedirection, productImg, productName, productP
 	return (
 		<div className={`product-card-container ${isMini ? 'mini' : ''}`}>
 			<div className="product-card__image">
-				<img className="product-img" src={`${productImg || 'https://via.placeholder.com/150'}`} alt="Product" />
+				<img
+					className="product-img"
+					src={`${productImg || 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban.png'}`}
+					alt="Product"
+				/>
 				{!isMini && (
 					<div className="product-card__info">
 						<div className="text-container">

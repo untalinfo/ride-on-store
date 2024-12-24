@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ProductDetailPage.scss';
 import Button from '../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON, BANK_CARD_ICON } from '../../../../shared/application/constants/icons';
@@ -6,8 +6,22 @@ import HeroDetails from '../components/HeroDetails';
 import { formatNumberWithDots } from '../../../../shared/application/helpers/common-functions';
 import CharacteristicItems from '../components/CharacteristicItems';
 import { CHARACTERISTIC_ITEM } from '../../application/constants/characteristicItem';
+import Modal from '../../../../shared/presentation/components/Modal';
+import FormPersonalData from '../components/Forms/FormPersonalData';
+import CreditCardForm from '../components/Forms/CreditCardForm';
 
 const ProductDetailPage = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [isOpenCredit, setIsOpenCredit] = useState(false);
+
+	const handleShowModal = () => {
+		setIsOpen(true);
+	};
+
+	const handleShowModalCredit = () => {
+		setIsOpen(false);
+		setIsOpenCredit(true);
+	};
 	return (
 		<div className="product-detail-page">
 			<HeroDetails product={'product'} />
@@ -33,8 +47,19 @@ const ProductDetailPage = () => {
 				</div>
 			</section>
 			<div className="button-product-container">
-				<Button label="Buy Now" leftIcon={BANK_CARD_ICON} />
+				<Button label="Buy Now" onClick={handleShowModal} leftIcon={BANK_CARD_ICON} />
 			</div>
+			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} showClose={false} contentStyle={{ height: '350px' }}>
+				<FormPersonalData handleShowModalCredit={handleShowModalCredit} />
+			</Modal>
+			<Modal
+				isOpen={isOpenCredit}
+				onClose={() => setIsOpenCredit(false)}
+				showClose={false}
+				contentStyle={{ height: '350px' }}
+			>
+				<CreditCardForm />
+			</Modal>
 		</div>
 	);
 };
