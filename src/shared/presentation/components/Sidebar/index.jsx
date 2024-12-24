@@ -10,14 +10,14 @@ import {
 } from '../../../application/constants/icons';
 
 const Sidebar = ({ isOpen, onClose }) => {
+	if (!isOpen) return null;
+
 	return (
 		<div className={`sidebar ${isOpen ? 'open' : ''}`}>
-			{/* Botón para cerrar el Sidebar */}
 			<button className={'close-button'} onClick={onClose}>
 				✖
 			</button>
 
-			{/* Opciones del Sidebar */}
 			<div className={'menu'}>
 				<p className={'menu-item'}>
 					<i className={TAG_PRICE_ICON}></i>
@@ -29,7 +29,6 @@ const Sidebar = ({ isOpen, onClose }) => {
 				</p>
 			</div>
 
-			{/* Íconos de Redes Sociales */}
 			<div className={'social-icons'}>
 				<a href="#" className={'icon-link'}>
 					<i className={FACEBOOK_ICON}></i>
