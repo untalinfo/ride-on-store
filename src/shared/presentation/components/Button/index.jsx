@@ -6,14 +6,14 @@ const Button = ({ label, onClick, type = 'button', className = '', leftIcon, rig
 	return (
 		<button type={type} className={`button-container ${className}`} onClick={onClick}>
 			{leftIcon && <i className={leftIcon} />}
-			<p>{label || children}</p>
+			{label || children}
 			{rightIcon && <i className={rightIcon} />}
 		</button>
 	);
 };
 
 Button.propTypes = {
-	label: PropTypes.string.isRequired,
+	label: PropTypes.string,
 	onClick: PropTypes.func,
 	type: PropTypes.oneOf(['button', 'submit', 'reset']),
 	className: PropTypes.string,
