@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import './ProductDetailPage.scss';
 import Button from '../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON, BANK_CARD_ICON } from '../../../../shared/application/constants/icons';
@@ -9,10 +11,13 @@ import { CHARACTERISTIC_ITEM } from '../../application/constants/characteristicI
 import Modal from '../../../../shared/presentation/components/Modal';
 import FormPersonalData from '../components/Forms/FormPersonalData';
 import CreditCardForm from '../components/Forms/CreditCardForm';
+import { getProductById } from '../../application/slices/product';
 
 const ProductDetailPage = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenCredit, setIsOpenCredit] = useState(false);
+	const dispatch = useDispatch();
+	const { productId } = useParams();
 
 	const handleShowModal = () => {
 		setIsOpen(true);
@@ -22,6 +27,11 @@ const ProductDetailPage = () => {
 		setIsOpen(false);
 		setIsOpenCredit(true);
 	};
+
+	useEffect(() => {
+		dispatch(getProductById(productId));
+	}, [dispatch, productId]);
+
 	return (
 		<div className="product-detail-page">
 			<HeroDetails product={'product'} />
