@@ -5,6 +5,7 @@ export const initialState = {
 	product: [],
 	error: null,
 	response: false,
+	shippingData: [],
 };
 
 export const getProductById = createAsyncThunk('product/getProductById', async (productId, { rejectWithValue }) => {
@@ -19,6 +20,11 @@ export const getProductById = createAsyncThunk('product/getProductById', async (
 const Product = createSlice({
 	name: 'product',
 	initialState,
+	reducers: {
+		setDataForm: (state, { payload }) => {
+			state.shippingData = { ...state.shippingData, ...payload };
+		},
+	},
 	extraReducers: {
 		[getProductById.pending]: (state) => {
 			state.error = null;
@@ -31,5 +37,7 @@ const Product = createSlice({
 		},
 	},
 });
+
+export const { setDataForm } = Product.actions;
 
 export default Product.reducer;
