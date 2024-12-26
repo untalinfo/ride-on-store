@@ -31,4 +31,9 @@
 			font-weight: 600;
 		}
 	}
+
+	@include x-large-view {
+		width: 50%;
+		align-self: center;
+	}
 }
