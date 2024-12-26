@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Navbar from '../../../../shared/presentation/components/Navbar';
 import CategoryList from '../components/CategoryList';
 import ProductCard from '../../../../shared/presentation/components/ProductCard';
 import './HomePage.scss';
 import { productDetailPageRoute } from '../../../productDetail/infrastructure/routing/routes';
+import { getProducts } from '../../application/slices/products';
 
 const HomePage = () => {
+	const dispatch = useDispatch();
+	// const arrayProducts = useSelector(getProductsSelector);
+
+	useEffect(() => {
+		dispatch(getProducts());
+	}, [dispatch]);
+
 	return (
 		<div className="home-page-container">
 			<Navbar />
