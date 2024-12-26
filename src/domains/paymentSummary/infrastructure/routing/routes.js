@@ -1,3 +1,3 @@
-export const paymentSummaryRoute = () => `/payment-summary`;
+export const paymentSummaryRoute = (productId = ':productId') => `/payment-summary/product/${productId}`;
 
 export default { paymentSummaryRoute };

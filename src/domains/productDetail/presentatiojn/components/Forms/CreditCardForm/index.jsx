@@ -1,12 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { paymentCreditCardFields } from '../../../../application/constants/formFields';
 import creditCardDataSchema from '../../../../application/schema/creditCardData';
 import Button from '../../../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants/icons';
+import { setDataForm } from '../../../../application/slices/product';
+import { history } from '../../../../../../shared/application/helpers/history';
+import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
 
-const CreditCardForm = () => {
+const CreditCardForm = ({ productId }) => {
+	const dispatch = useDispatch();
 	const {
 		register,
 		handleSubmit,
@@ -16,6 +22,8 @@ const CreditCardForm = () => {
 
 	const onSubmit = (data) => {
 		console.log(data);
+		dispatch(setDataForm(data));
+		history.push(paymentSummaryRoute(productId));
 	};
 
 	const handleExpirationDateInput = (event) => {
@@ -149,6 +157,10 @@ const CreditCardForm = () => {
 			</div>
 		</form>
 	);
+};
+
+CreditCardForm.propTypes = {
+	productId: PropTypes.string.isRequired,
 };
 
 export default CreditCardForm;

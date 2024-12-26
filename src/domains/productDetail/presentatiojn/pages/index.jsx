@@ -13,6 +13,17 @@ import FormPersonalData from '../components/Forms/FormPersonalData';
 import CreditCardForm from '../components/Forms/CreditCardForm';
 import { getProductById } from '../../application/slices/product';
 
+const PRODUCT = {
+	id: 'f65daf7c-d6d7-4b7d-9524-fac8f8894836',
+	title: 'ICHIBAN Electric 2032',
+	image: 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban.png',
+	price: '3400000',
+	description:
+		"Ichiban isn't simply a mode of transport; it's an escape, a liberating streak of freedom in an excessively interconnected world.",
+	stock: 13,
+	created_at: '2024-12-24T20:39:49.521Z',
+};
+
 const ProductDetailPage = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenCredit, setIsOpenCredit] = useState(false);
@@ -34,19 +45,15 @@ const ProductDetailPage = () => {
 
 	return (
 		<div className="product-detail-page">
-			<HeroDetails product={'product'} />
+			<HeroDetails product={PRODUCT} />
 			<section className="product-description">
-				<h1>Product Name</h1>
-				<p>
-					Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto
-					de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la
-					imprenta) desconocido usó una galería de textos
-				</p>
+				<h1>{PRODUCT.title}</h1>
+				<p>{PRODUCT.description}</p>
 			</section>
 			<CharacteristicItems characteristics={CHARACTERISTIC_ITEM} />
 			<section className="price-version">
 				<div className="left-container">
-					<p className="price">{`$ ${formatNumberWithDots('34000000')}`}</p>
+					<p className="price">{`$ ${formatNumberWithDots(PRODUCT.price)}`}</p>
 					<p className="text">Ex-showroom price</p>
 				</div>
 				<div className="right-container">
@@ -68,7 +75,7 @@ const ProductDetailPage = () => {
 				showClose={false}
 				contentStyle={{ height: '350px' }}
 			>
-				<CreditCardForm />
+				<CreditCardForm productId={PRODUCT.id} />
 			</Modal>
 		</div>
 	);

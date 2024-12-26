@@ -1,7 +1,7 @@
 export const personalDataFields = Object.freeze({
 	FULL_NAME: 'full_name',
 	EMAIL: 'email',
-	PHONE: 'phone',
+	PHONE: 'phone_number',
 });
 
 export const paymentCreditCardFields = Object.freeze({

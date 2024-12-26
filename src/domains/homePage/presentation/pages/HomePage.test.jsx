@@ -88,8 +88,8 @@ describe('HomePage Component', () => {
 		);
 
 		// Verificar el contenido de la tarjeta de producto principal
-		expect(screen.getByText('Ichiban Electric 2032')).toBeInTheDocument();
-		expect(screen.getByText('CXTR')).toBeInTheDocument();
+		expect(screen.getByText('ICHIBAN Electric 2032')).toBeInTheDocument();
+		expect(screen.getByText('CXTBR')).toBeInTheDocument();
 		expect(screen.getByText('MBWS')).toBeInTheDocument();
 		expect(screen.getByText('Jaguar')).toBeInTheDocument();
 	});
