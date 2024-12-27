@@ -9,3 +9,11 @@ export const getProductSelector = createSelector(productState, (product) => {
 export const shippingDataSelector = createSelector(productState, (product) => {
 	return product?.shippingData;
 });
+
+export const isLoadingOrderSelector = createSelector(productState, (product) => {
+	return product?.isLoading;
+});
+
+export const orderSelector = createSelector(productState, (product) => {
+	return product?.order;
+});
