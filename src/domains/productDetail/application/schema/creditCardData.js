@@ -19,6 +19,14 @@ const creditCardDataValidation = {
 		.string()
 		.required('CVV is required')
 		.matches(/^[0-9]{3,4}$/, 'CVV must be 3 or 4 digits'),
+	[paymentCreditCardFields.TYPE_ID]: yup.string().required('Type id is required'),
+	[paymentCreditCardFields.NUMBER_ID]: yup
+		.string()
+		.required('Id number is required')
+		.min(8, 'Id number must be at least 2 characters'),
+	[paymentCreditCardFields.NUMBER_INSTALLMENTS]: yup.string().required('Number of installments is required'),
+	[paymentCreditCardFields.CITY]: yup.string().required('City address is required'),
+	[paymentCreditCardFields.DELIVERY_ADDRESS]: yup.string().required('Delivery address is required'),
 };
 
 const creditCardDataSchema = yup.object().shape(creditCardDataValidation);

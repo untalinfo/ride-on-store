@@ -5,15 +5,15 @@ export const personalDataFields = Object.freeze({
 });
 
 export const paymentCreditCardFields = Object.freeze({
-	NUMBER: 'number',
-	EXPIRY: 'expiry',
-	CVC: 'cvc',
-	NAME: 'card_name',
+	NUMBER: 'card_number',
+	EXPIRY: 'card_expiration_date',
+	CVC: 'card_cvc',
+	NAME: 'card_holder',
 	TYPE_ID: 'type_id',
 	NUMBER_ID: 'numer_id',
 	NUMBER_INSTALLMENTS: 'number_installments',
-	CITY: 'city',
-	DELIVERY_ADDRESS: 'delivery_address',
+	CITY: 'shipping_address_city',
+	DELIVERY_ADDRESS: 'shipping_addrs_line',
 });
 
 export const products = [
