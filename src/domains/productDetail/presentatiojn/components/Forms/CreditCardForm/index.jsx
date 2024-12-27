@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { paymentCreditCardFields } from '../../../../application/constants/formFields';
 import creditCardDataSchema from '../../../../application/schema/creditCardData';
@@ -11,18 +11,28 @@ import { setDataForm } from '../../../../application/slices/product';
 import { history } from '../../../../../../shared/application/helpers/history';
 import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
 import './CreditCardForm.scss';
+import { shippingDataSelector } from '../../../../application/selectors/product';
 
 const CreditCardForm = ({ productId }) => {
 	const dispatch = useDispatch();
+	const dataForm = useSelector(shippingDataSelector);
+
+	const defaultValues = {
+		[paymentCreditCardFields.NAME]: dataForm[paymentCreditCardFields.NAME] || '',
+		[paymentCreditCardFields.TYPE_ID]: dataForm[paymentCreditCardFields.TYPE_ID] || '',
+		[paymentCreditCardFields.NUMBER_ID]: dataForm[paymentCreditCardFields.NUMBER_ID] || '',
+		[paymentCreditCardFields.NUMBER_INSTALLMENTS]: dataForm[paymentCreditCardFields.NUMBER_INSTALLMENTS] || '',
+		[paymentCreditCardFields.CITY]: dataForm[paymentCreditCardFields.CITY] || '',
+		[paymentCreditCardFields.DELIVERY_ADDRESS]: dataForm[paymentCreditCardFields.DELIVERY_ADDRESS] || '',
+	};
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		control,
-	} = useForm({ mode: 'onChange', resolver: yupResolver(creditCardDataSchema) });
+	} = useForm({ defaultValues, mode: 'onChange', resolver: yupResolver(creditCardDataSchema) });
 
 	const onSubmit = (data) => {
-		console.log(data);
 		dispatch(setDataForm(data));
 		history.push(paymentSummaryRoute(productId));
 	};
@@ -56,7 +66,9 @@ const CreditCardForm = ({ productId }) => {
 						/>
 					)}
 				/>
-				{errors.number && <small className="color-primary">{errors[paymentCreditCardFields.NUMBER]?.message}</small>}
+				{errors[paymentCreditCardFields.NUMBER] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.NUMBER]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -67,7 +79,9 @@ const CreditCardForm = ({ productId }) => {
 					onInput={handleExpirationDateInput}
 					{...register(paymentCreditCardFields.EXPIRY, { required: 'Expiration date is required' })}
 				/>
-				{errors.expiry && <small className="color-primary">{errors[paymentCreditCardFields.EXPIRY]?.message}</small>}
+				{errors[paymentCreditCardFields.EXPIRY] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.EXPIRY]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -77,7 +91,9 @@ const CreditCardForm = ({ productId }) => {
 					className="input-styles"
 					{...register(paymentCreditCardFields.CVC, { required: 'CVC is required' })}
 				/>
-				{errors.cvc && <small className="color-primary">{errors[paymentCreditCardFields.CVC]?.message}</small>}
+				{errors[paymentCreditCardFields.CVC] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.CVC]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -86,7 +102,9 @@ const CreditCardForm = ({ productId }) => {
 					className="input-styles"
 					{...register(paymentCreditCardFields.NAME, { required: 'Name on card is required' })}
 				/>
-				{errors.card_name && <small className="color-primary">{errors[paymentCreditCardFields.NAME]?.message}</small>}
+				{errors[paymentCreditCardFields.NAME] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.NAME]?.message}</small>
+				)}
 			</div>
 			<div>
 				<select
