@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
 import React from 'react';
 import PropTypes from 'prop-types';
+import ClipLoader from 'react-spinners/BeatLoader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { MASTERCARD_REGEX, paymentCreditCardFields, VISA_REGEX } from '../../../../application/constants/formFields';
@@ -11,12 +12,13 @@ import { setDataForm } from '../../../../application/slices/product';
 import { history } from '../../../../../../shared/application/helpers/history';
 import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
 import './CreditCardForm.scss';
-import { shippingDataSelector } from '../../../../application/selectors/product';
+import { isLoadingOrderSelector, shippingDataSelector } from '../../../../application/selectors/product';
 import { MASTERCARD_ICON, VISA_ICON } from '../../../../application/constants/icons';
 
 const CreditCardForm = ({ productId }) => {
 	const dispatch = useDispatch();
 	const dataForm = useSelector(shippingDataSelector);
+	const isLoading = useSelector(isLoadingOrderSelector);
 
 	const defaultValues = {
 		[paymentCreditCardFields.NAME]: dataForm[paymentCreditCardFields.NAME] || '',
@@ -34,6 +36,9 @@ const CreditCardForm = ({ productId }) => {
 	} = useForm({ defaultValues, mode: 'onChange', resolver: yupResolver(creditCardDataSchema) });
 
 	const onSubmit = (data) => {
+		delete data[paymentCreditCardFields.NUMBER];
+		delete data[paymentCreditCardFields.CVC];
+		delete data[paymentCreditCardFields.EXPIRY];
 		dispatch(setDataForm(data));
 		history.push(paymentSummaryRoute(productId));
 	};
@@ -46,6 +51,15 @@ const CreditCardForm = ({ productId }) => {
 			event.target.value = value.slice(0, -1);
 		}
 	};
+
+	const override = {
+		display: 'flex',
+		margin: '0 auto',
+		borderColor: 'blue',
+		with: '20px',
+		height: '20px',
+	};
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="form-credit-card-container">
 			<h3 className="title-form">Pay with your credit card</h3>
@@ -174,8 +188,19 @@ const CreditCardForm = ({ productId }) => {
 				)}
 			</div>
 			<div className="form-button-container">
-				<Button type="submit" rightIcon={ARROW_RIGHT_ICON}>
-					<p className="text-button">Next</p>
+				<Button type="submit" rightIcon={`${isLoading ? null : ARROW_RIGHT_ICON}`} disabled={isLoading}>
+					{isLoading ? (
+						<ClipLoader
+							color={'white'}
+							loading={isLoading}
+							cssOverride={override}
+							size={20}
+							aria-label="Loading Spinner"
+							data-testid="loader"
+						/>
+					) : (
+						<p className="text-button">Next</p>
+					)}
 				</Button>
 			</div>
 		</form>
