@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { paymentCreditCardFields } from '../../../../application/constants/formFields';
+import { MASTERCARD_REGEX, paymentCreditCardFields, VISA_REGEX } from '../../../../application/constants/formFields';
 import creditCardDataSchema from '../../../../application/schema/creditCardData';
 import Button from '../../../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants/icons';
@@ -12,6 +12,7 @@ import { history } from '../../../../../../shared/application/helpers/history';
 import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
 import './CreditCardForm.scss';
 import { shippingDataSelector } from '../../../../application/selectors/product';
+import { MASTERCARD_ICON, VISA_ICON } from '../../../../application/constants/icons';
 
 const CreditCardForm = ({ productId }) => {
 	const dispatch = useDispatch();
@@ -48,22 +49,25 @@ const CreditCardForm = ({ productId }) => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="form-credit-card-container">
 			<h3 className="title-form">Pay with your credit card</h3>
-			<div>
+			<div className="container-card-number-input">
 				<Controller
 					name={paymentCreditCardFields.NUMBER}
 					control={control}
 					render={({ field }) => (
-						<input
-							id="name"
-							placeholder="Card number"
-							className="input-styles"
-							{...field}
-							// onFocus={handleInputFocus}
-							onChange={(e) => {
-								field.onChange(e);
-								// handleInputChange(e);
-							}}
-						/>
+						<div className="input-with-logo">
+							<input
+								id="cardNumber"
+								placeholder="Card number"
+								className="input-styles"
+								{...field}
+								onChange={(e) => {
+									field.onChange(e);
+									// handleInputChange(e);
+								}}
+							/>
+							{field?.value?.match(VISA_REGEX) && <i className={`${VISA_ICON} icon-card`} />}
+							{field?.value?.match(MASTERCARD_REGEX) && <i className={`${MASTERCARD_ICON} icon-card`} />}
+						</div>
 					)}
 				/>
 				{errors[paymentCreditCardFields.NUMBER] && (
@@ -106,7 +110,7 @@ const CreditCardForm = ({ productId }) => {
 					<small className="color-primary">{errors[paymentCreditCardFields.NAME]?.message}</small>
 				)}
 			</div>
-			<div>
+			<div className="input-selector-container">
 				<select
 					id="typeIdentification"
 					placeholder="Type"
@@ -130,7 +134,7 @@ const CreditCardForm = ({ productId }) => {
 					<small className="color-primary">{errors[paymentCreditCardFields.NUMBER_ID]?.message}</small>
 				)}
 			</div>
-			<div>
+			<div className="input-selector-container">
 				<select
 					id="numberOfInstallments"
 					className="input-styles"

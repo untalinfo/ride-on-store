@@ -47,3 +47,6 @@ export const products = [
 		price: '2800000',
 	},
 ];
+
+export const VISA_REGEX = /^4[0-9]{12}(?:[0-9]{3})?$/;
+export const MASTERCARD_REGEX = /^5[1-5][0-9]{14}$/;
