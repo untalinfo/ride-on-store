@@ -9,6 +9,8 @@ export default defineConfig(() => {
 	return {
 		build: {
 			outDir: 'build',
+			minify: 'esbuild',
+			target: 'esnext',
 		},
 		css: {
 			preprocessorOptions: {
@@ -29,15 +31,20 @@ export default defineConfig(() => {
 				},
 			},
 		},
-		plugins: [react(), envCompatible(), eslint(), legacy({
-			targets: ['defaults', 'not IE 11'],
-		})],
+		plugins: [
+			react(),
+			envCompatible(),
+			eslint(),
+			legacy({
+				targets: ['defaults', 'not IE 11'],
+			}),
+		],
 		resolve: {
 			extensions: ['.js', '.jsx', 'json'],
 		},
 		server: {
 			port: process.env.PORT || 3000,
-			host: true
+			host: true,
 		},
 		test: {
 			environment: 'jsdom',
