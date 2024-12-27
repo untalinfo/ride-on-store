@@ -24,6 +24,9 @@ const Product = createSlice({
 		setDataForm: (state, { payload }) => {
 			state.shippingData = { ...state.shippingData, ...payload };
 		},
+		setResetShippingDataState: (state, { payload }) => {
+			state.shippingData = [];
+		},
 	},
 	extraReducers: {
 		[getProductById.pending]: (state) => {
@@ -38,6 +41,6 @@ const Product = createSlice({
 	},
 });
 
-export const { setDataForm } = Product.actions;
+export const { setDataForm, setResetShippingDataState } = Product.actions;
 
 export default Product.reducer;
