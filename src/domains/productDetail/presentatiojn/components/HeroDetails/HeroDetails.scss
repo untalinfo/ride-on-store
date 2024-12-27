@@ -2,6 +2,8 @@
 @import '../../../../../shared/application/theme/fonts.scss';
 
 .hero-details-container {
+	display: flex;
+	flex-direction: column;
 	position: relative;
 	width: 100%;
 	height: 340px;
@@ -10,6 +12,13 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+
+		@include x-large-view {
+			align-self: center;
+			border-radius: 12px;
+			margin-top: 40px;
+			width: 20%;
+		}
 	}
 
 	> .hero-details {
@@ -39,6 +48,19 @@
 				font-size: 1.4rem;
 				font-weight: 400;
 			}
+
+			@include x-large-view {
+				> .text {
+					font-size: 2.2rem;
+				}
+				> .stock {
+					font-size: 2rem;
+				}
+			}
 		}
+	}
+
+	@include x-large-view {
+		margin-bottom: 40px;
 	}
 }

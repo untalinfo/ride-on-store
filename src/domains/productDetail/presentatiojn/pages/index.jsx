@@ -47,8 +47,8 @@ const ProductDetailPage = () => {
 		<div className="product-detail-page">
 			<HeroDetails product={PRODUCT} />
 			<section className="product-description">
-				<h1>{PRODUCT.title}</h1>
-				<p>{PRODUCT.description}</p>
+				<h1 className="title">{PRODUCT.title}</h1>
+				<p className="description">{PRODUCT.description}</p>
 			</section>
 			<CharacteristicItems characteristics={CHARACTERISTIC_ITEM} />
 			<section className="price-version">
@@ -66,14 +66,14 @@ const ProductDetailPage = () => {
 			<div className="button-product-container">
 				<Button label="Buy Now" onClick={handleShowModal} leftIcon={BANK_CARD_ICON} />
 			</div>
-			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} showClose={false} contentStyle={{ height: '350px' }}>
+			<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} showClose={false} contentStyle={{ height: 'min-content' }}>
 				<FormPersonalData handleShowModalCredit={handleShowModalCredit} />
 			</Modal>
 			<Modal
 				isOpen={isOpenCredit}
 				onClose={() => setIsOpenCredit(false)}
 				showClose={false}
-				contentStyle={{ height: '350px' }}
+				contentStyle={{ height: 'min-content' }}
 			>
 				<CreditCardForm productId={PRODUCT.id} />
 			</Modal>

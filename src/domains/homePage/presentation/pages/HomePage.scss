@@ -13,6 +13,9 @@
 			@extend .color-neutral;
 			font-size: 1.6rem;
 		}
+		@include x-large-view {
+			margin: 20px 40px;
+		}
 	}
 
 	> .corousel-container {
@@ -30,7 +33,6 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			width: 100%;
 
 			> .popular {
 				@extend .font-title;
@@ -43,6 +45,12 @@
 				cursor: pointer;
 				font-size: 1.2rem;
 			}
+
+			@include x-large-view {
+				margin: 20px 40px;
+				width: 35%;
+				align-self: center;
+			}
 		}
 
 		> .product-grid {
@@ -51,6 +59,11 @@
 			justify-content: center;
 			gap: 20px;
 			width: 100%;
+
+			@include x-large-view {
+				gap: 100px;
+				margin-top: 40px;
+			}
 		}
 	}
 }

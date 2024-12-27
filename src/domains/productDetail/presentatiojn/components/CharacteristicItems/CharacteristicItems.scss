@@ -3,4 +3,10 @@
 .characteristic-items-container {
 	@include centered-display-flex;
 	justify-content: space-evenly;
+
+	@include x-large-view {
+		align-self: center;
+		width: 40dvw;
+		margin: 4rem 0;
+	}
 }

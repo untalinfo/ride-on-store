@@ -10,6 +10,7 @@ import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants
 import { setDataForm } from '../../../../application/slices/product';
 import { history } from '../../../../../../shared/application/helpers/history';
 import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
+import './CreditCardForm.scss';
 
 const CreditCardForm = ({ productId }) => {
 	const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const CreditCardForm = ({ productId }) => {
 		}
 	};
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="form-personal-data-container">
+		<form onSubmit={handleSubmit(onSubmit)} className="form-credit-card-container">
 			<h3 className="title-form">Pay with your credit card</h3>
 			<div>
 				<Controller

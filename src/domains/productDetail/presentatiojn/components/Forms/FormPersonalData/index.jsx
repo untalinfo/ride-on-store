@@ -23,7 +23,7 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 	const defaultValues = {
 		[personalDataFields.FULL_NAME]: dataForm.full_name || '',
 		[personalDataFields.EMAIL]: dataForm.email || '',
-		[personalDataFields.PHONE]: dataForm.phone || '',
+		[personalDataFields.PHONE]: dataForm.phone_number || '',
 	};
 	const {
 		register,
@@ -68,7 +68,9 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 						/>
 					)}
 				/>
-				{errors.full_name && <small className="color-primary">{errors[personalDataFields.FULL_NAME]?.message}</small>}
+				{errors[personalDataFields.FULL_NAME] && (
+					<small className="color-primary">{errors[personalDataFields.FULL_NAME]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -76,9 +78,11 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 					type="email"
 					className="input-styles"
 					placeholder="Email"
-					{...register('email', { required: 'Email is required' })}
+					{...register(personalDataFields.EMAIL, { required: 'Email is required' })}
 				/>
-				{errors.email && <small className="color-primary">{errors[personalDataFields.EMAIL]?.message}</small>}
+				{errors[personalDataFields.EMAIL] && (
+					<small className="color-primary">{errors[personalDataFields.EMAIL]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -86,9 +90,11 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 					type="tel"
 					placeholder="Phone"
 					className="input-styles"
-					{...register('phone', { required: 'Phone is required' })}
+					{...register(personalDataFields.PHONE, { required: 'Phone is required' })}
 				/>
-				{errors.phone && <small className="color-primary">{errors[personalDataFields.PHONE]?.message}</small>}
+				{errors[personalDataFields.PHONE] && (
+					<small className="color-primary">{errors[personalDataFields.PHONE]?.message}</small>
+				)}
 			</div>
 			<div className="form-button-container">
 				<Button type="submit" rightIcon={ARROW_RIGHT_ICON}>

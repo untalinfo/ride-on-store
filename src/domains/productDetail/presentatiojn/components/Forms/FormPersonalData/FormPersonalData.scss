@@ -10,6 +10,10 @@
 		@extend .color-primary;
 		font-weight: 500;
 		margin-bottom: 12px;
+
+		@include x-large-view {
+			font-size: 2.5rem;
+		}
 	}
 
 	> .form-button-container {
@@ -20,6 +24,10 @@
 		.text-button {
 			font-size: 1.4rem;
 			font-weight: 500;
+		}
+
+		@include x-large-view {
+			width: 20%;
 		}
 	}
 }
