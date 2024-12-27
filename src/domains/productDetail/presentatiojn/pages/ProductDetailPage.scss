@@ -8,6 +8,22 @@
 
 	> .product-description {
 		padding: 0 20px;
+
+		@include x-large-view {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			align-self: center;
+			// width: 50dvw;
+
+			> .title {
+				font-size: 3.2rem;
+			}
+
+			> .description {
+				font-size: 1.6rem;
+			}
+		}
 	}
 
 	> .price-version {
@@ -49,5 +65,11 @@
 		padding: 0 32px;
 		width: 100%;
 		margin-bottom: 46px;
+
+		@include x-large-view {
+			width: 25%;
+			align-self: center;
+			margin-top: 4rem;
+		}
 	}
 }

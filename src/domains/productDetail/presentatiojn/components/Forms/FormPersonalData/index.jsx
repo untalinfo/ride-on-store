@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
@@ -9,16 +9,28 @@ import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants
 import './FormPersonalData.scss';
 import personalDataSchema from '../../../../application/schema/personalData';
 import { personalDataFields } from '../../../../application/constants/formFields';
+import { setDataForm } from '../../../../application/slices/product';
+import { shippingDataSelector } from '../../../../application/selectors/product';
 
 const FormPersonalData = ({ handleShowModalCredit }) => {
+	const dispatch = useDispatch();
 	// const payment = useSelector('getPayment');
 	// const dispatch = useDispatch();
+	const dataForm = useSelector(shippingDataSelector);
+
+	console.log('here', dataForm);
+
+	const defaultValues = {
+		[personalDataFields.FULL_NAME]: dataForm.full_name || '',
+		[personalDataFields.EMAIL]: dataForm.email || '',
+		[personalDataFields.PHONE]: dataForm.phone_number || '',
+	};
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		control,
-	} = useForm({ mode: 'onChange', resolver: yupResolver(personalDataSchema) });
+	} = useForm({ defaultValues, mode: 'onChange', resolver: yupResolver(personalDataSchema) });
 
 	const handleInputChange = (evt) => {
 		// const { name, value } = evt.target;
@@ -31,6 +43,7 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 
 	const onSubmit = (data) => {
 		console.log(data);
+		dispatch(setDataForm(data));
 		handleShowModalCredit();
 	};
 
@@ -55,7 +68,9 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 						/>
 					)}
 				/>
-				{errors.full_name && <small className="color-primary">{errors[personalDataFields.FULL_NAME]?.message}</small>}
+				{errors[personalDataFields.FULL_NAME] && (
+					<small className="color-primary">{errors[personalDataFields.FULL_NAME]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -63,9 +78,11 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 					type="email"
 					className="input-styles"
 					placeholder="Email"
-					{...register('email', { required: 'Email is required' })}
+					{...register(personalDataFields.EMAIL, { required: 'Email is required' })}
 				/>
-				{errors.email && <small className="color-primary">{errors[personalDataFields.EMAIL]?.message}</small>}
+				{errors[personalDataFields.EMAIL] && (
+					<small className="color-primary">{errors[personalDataFields.EMAIL]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -73,9 +90,11 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 					type="tel"
 					placeholder="Phone"
 					className="input-styles"
-					{...register('phone', { required: 'Phone is required' })}
+					{...register(personalDataFields.PHONE, { required: 'Phone is required' })}
 				/>
-				{errors.phone && <small className="color-primary">{errors[personalDataFields.PHONE]?.message}</small>}
+				{errors[personalDataFields.PHONE] && (
+					<small className="color-primary">{errors[personalDataFields.PHONE]?.message}</small>
+				)}
 			</div>
 			<div className="form-button-container">
 				<Button type="submit" rightIcon={ARROW_RIGHT_ICON}>

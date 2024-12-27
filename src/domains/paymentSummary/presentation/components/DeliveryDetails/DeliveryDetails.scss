@@ -19,4 +19,8 @@
 		font-size: 1.4rem;
 		font-weight: 400;
 	}
+	@include x-large-view {
+		width: 50%;
+		align-self: center;
+	}
 }

@@ -21,11 +21,22 @@
 			height: 100%;
 			object-fit: cover;
 		}
+		@include x-large-view {
+			width: 400px;
+			height: 370px;
+			margin-bottom: 4rem;
+		}
 	}
 
 	> .button-buy-container {
 		padding: 0 26px;
 		width: 100%;
 		margin-bottom: 46px;
+
+		@include x-large-view {
+			width: 25%;
+			align-self: center;
+			margin-top: 4rem;
+		}
 	}
 }

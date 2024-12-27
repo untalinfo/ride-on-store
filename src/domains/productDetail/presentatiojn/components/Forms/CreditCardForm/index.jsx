@@ -1,21 +1,46 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
 import React from 'react';
+import PropTypes from 'prop-types';
+import ClipLoader from 'react-spinners/BeatLoader';
+import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { paymentCreditCardFields } from '../../../../application/constants/formFields';
+import { MASTERCARD_REGEX, paymentCreditCardFields, VISA_REGEX } from '../../../../application/constants/formFields';
 import creditCardDataSchema from '../../../../application/schema/creditCardData';
 import Button from '../../../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants/icons';
+import { setDataForm } from '../../../../application/slices/product';
+import { history } from '../../../../../../shared/application/helpers/history';
+import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
+import './CreditCardForm.scss';
+import { isLoadingOrderSelector, shippingDataSelector } from '../../../../application/selectors/product';
+import { MASTERCARD_ICON, VISA_ICON } from '../../../../application/constants/icons';
 
-const CreditCardForm = () => {
+const CreditCardForm = ({ productId }) => {
+	const dispatch = useDispatch();
+	const dataForm = useSelector(shippingDataSelector);
+	const isLoading = useSelector(isLoadingOrderSelector);
+
+	const defaultValues = {
+		[paymentCreditCardFields.NAME]: dataForm[paymentCreditCardFields.NAME] || '',
+		[paymentCreditCardFields.TYPE_ID]: dataForm[paymentCreditCardFields.TYPE_ID] || '',
+		[paymentCreditCardFields.NUMBER_ID]: dataForm[paymentCreditCardFields.NUMBER_ID] || '',
+		[paymentCreditCardFields.NUMBER_INSTALLMENTS]: dataForm[paymentCreditCardFields.NUMBER_INSTALLMENTS] || '',
+		[paymentCreditCardFields.CITY]: dataForm[paymentCreditCardFields.CITY] || '',
+		[paymentCreditCardFields.DELIVERY_ADDRESS]: dataForm[paymentCreditCardFields.DELIVERY_ADDRESS] || '',
+	};
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		control,
-	} = useForm({ mode: 'onChange', resolver: yupResolver(creditCardDataSchema) });
+	} = useForm({ defaultValues, mode: 'onChange', resolver: yupResolver(creditCardDataSchema) });
 
 	const onSubmit = (data) => {
-		console.log(data);
+		delete data[paymentCreditCardFields.NUMBER];
+		delete data[paymentCreditCardFields.CVC];
+		delete data[paymentCreditCardFields.EXPIRY];
+		dispatch(setDataForm(data));
+		history.push(paymentSummaryRoute(productId));
 	};
 
 	const handleExpirationDateInput = (event) => {
@@ -26,28 +51,42 @@ const CreditCardForm = () => {
 			event.target.value = value.slice(0, -1);
 		}
 	};
+
+	const override = {
+		display: 'flex',
+		margin: '0 auto',
+		borderColor: 'blue',
+		with: '20px',
+		height: '20px',
+	};
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="form-personal-data-container">
+		<form onSubmit={handleSubmit(onSubmit)} className="form-credit-card-container">
 			<h3 className="title-form">Pay with your credit card</h3>
-			<div>
+			<div className="container-card-number-input">
 				<Controller
 					name={paymentCreditCardFields.NUMBER}
 					control={control}
 					render={({ field }) => (
-						<input
-							id="name"
-							placeholder="Card number"
-							className="input-styles"
-							{...field}
-							// onFocus={handleInputFocus}
-							onChange={(e) => {
-								field.onChange(e);
-								// handleInputChange(e);
-							}}
-						/>
+						<div className="input-with-logo">
+							<input
+								id="cardNumber"
+								placeholder="Card number"
+								className="input-styles"
+								{...field}
+								onChange={(e) => {
+									field.onChange(e);
+									// handleInputChange(e);
+								}}
+							/>
+							{field?.value?.match(VISA_REGEX) && <i className={`${VISA_ICON} icon-card`} />}
+							{field?.value?.match(MASTERCARD_REGEX) && <i className={`${MASTERCARD_ICON} icon-card`} />}
+						</div>
 					)}
 				/>
-				{errors.number && <small className="color-primary">{errors[paymentCreditCardFields.NUMBER]?.message}</small>}
+				{errors[paymentCreditCardFields.NUMBER] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.NUMBER]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -58,7 +97,9 @@ const CreditCardForm = () => {
 					onInput={handleExpirationDateInput}
 					{...register(paymentCreditCardFields.EXPIRY, { required: 'Expiration date is required' })}
 				/>
-				{errors.expiry && <small className="color-primary">{errors[paymentCreditCardFields.EXPIRY]?.message}</small>}
+				{errors[paymentCreditCardFields.EXPIRY] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.EXPIRY]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -68,7 +109,9 @@ const CreditCardForm = () => {
 					className="input-styles"
 					{...register(paymentCreditCardFields.CVC, { required: 'CVC is required' })}
 				/>
-				{errors.cvc && <small className="color-primary">{errors[paymentCreditCardFields.CVC]?.message}</small>}
+				{errors[paymentCreditCardFields.CVC] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.CVC]?.message}</small>
+				)}
 			</div>
 			<div>
 				<input
@@ -77,9 +120,11 @@ const CreditCardForm = () => {
 					className="input-styles"
 					{...register(paymentCreditCardFields.NAME, { required: 'Name on card is required' })}
 				/>
-				{errors.card_name && <small className="color-primary">{errors[paymentCreditCardFields.NAME]?.message}</small>}
+				{errors[paymentCreditCardFields.NAME] && (
+					<small className="color-primary">{errors[paymentCreditCardFields.NAME]?.message}</small>
+				)}
 			</div>
-			<div>
+			<div className="input-selector-container">
 				<select
 					id="typeIdentification"
 					placeholder="Type"
@@ -103,7 +148,7 @@ const CreditCardForm = () => {
 					<small className="color-primary">{errors[paymentCreditCardFields.NUMBER_ID]?.message}</small>
 				)}
 			</div>
-			<div>
+			<div className="input-selector-container">
 				<select
 					id="numberOfInstallments"
 					className="input-styles"
@@ -143,12 +188,27 @@ const CreditCardForm = () => {
 				)}
 			</div>
 			<div className="form-button-container">
-				<Button type="submit" rightIcon={ARROW_RIGHT_ICON}>
-					<p className="text-button">Next</p>
+				<Button type="submit" rightIcon={`${isLoading ? null : ARROW_RIGHT_ICON}`} disabled={isLoading}>
+					{isLoading ? (
+						<ClipLoader
+							color={'white'}
+							loading={isLoading}
+							cssOverride={override}
+							size={20}
+							aria-label="Loading Spinner"
+							data-testid="loader"
+						/>
+					) : (
+						<p className="text-button">Next</p>
+					)}
 				</Button>
 			</div>
 		</form>
 	);
+};
+
+CreditCardForm.propTypes = {
+	productId: PropTypes.string.isRequired,
 };
 
 export default CreditCardForm;

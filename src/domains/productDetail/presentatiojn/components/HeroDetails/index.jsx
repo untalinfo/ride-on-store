@@ -8,7 +8,7 @@ const HeroDetails = ({ product }) => {
 		<div className="hero-details-container">
 			<img
 				src={product.image || 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban2.png'}
-				alt={product.name}
+				alt={product.title}
 				className="product-img"
 			/>
 			<section className="hero-details">
@@ -25,7 +25,7 @@ const HeroDetails = ({ product }) => {
 HeroDetails.propTypes = {
 	product: PropTypes.shape({
 		image: PropTypes.string.isRequired,
-		name: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
 		stock: PropTypes.number.isRequired,
 	}).isRequired,
 };

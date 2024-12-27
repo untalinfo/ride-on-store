@@ -3,9 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './shared/application/store';
+import { persistor, store } from './shared/application/store';
 import { history } from './shared/application/helpers/history';
 import ErrorBoundary from './shared/presentation/ErrorBoundary';
 
@@ -13,11 +14,13 @@ import './index.scss';
 
 ReactDOM.render(
 	<Provider store={store}>
-		<React.StrictMode>
-			<Router history={history}>
-				<ErrorBoundary>{history && store && <App />}</ErrorBoundary>
-			</Router>
-		</React.StrictMode>
+		<PersistGate loading={null} persistor={persistor}>
+			<React.StrictMode>
+				<Router history={history}>
+					<ErrorBoundary>{history && store && <App />}</ErrorBoundary>
+				</Router>
+			</React.StrictMode>
+		</PersistGate>
 	</Provider>,
 	document.getElementById('root'),
 );
