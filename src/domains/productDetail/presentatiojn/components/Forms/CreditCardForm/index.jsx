@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import ClipLoader from 'react-spinners/BeatLoader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { MASTERCARD_REGEX, paymentCreditCardFields, VISA_REGEX } from '../../../../application/constants/formFields';
+import {
+	MASTERCARD_REGEX,
+	paymentCreditCardFields,
+	TERMS_CONDICTIONS_LINK,
+	VISA_REGEX,
+} from '../../../../application/constants/formFields';
 import creditCardDataSchema from '../../../../application/schema/creditCardData';
 import Button from '../../../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants/icons';
@@ -187,6 +192,23 @@ const CreditCardForm = ({ productId }) => {
 					<small className="color-primary">{errors[paymentCreditCardFields.DELIVERY_ADDRESS]?.message}</small>
 				)}
 			</div>
+			<div className="checkbox-container">
+				<input
+					id="termsAndConditions"
+					type="checkbox"
+					className="checkbox-styles"
+					{...register(paymentCreditCardFields.TERMS_CONDICTIONS, { required: 'You must accept the terms and conditions' })}
+				/>
+				<label htmlFor="termsAndConditions" className="checkbox-label">
+					I accept the terms and conditions
+					<b>
+						<a href={TERMS_CONDICTIONS_LINK} target="_blank" rel="noreferrer">{` terms and conditions`}</a>
+					</b>
+				</label>
+			</div>
+			{errors[paymentCreditCardFields.TERMS_CONDICTIONS] && (
+				<small className="color-primary">{errors[paymentCreditCardFields.TERMS_CONDICTIONS].message}</small>
+			)}
 			<div className="form-button-container">
 				<Button type="submit" rightIcon={`${isLoading ? null : ARROW_RIGHT_ICON}`} disabled={isLoading}>
 					{isLoading ? (

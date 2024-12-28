@@ -27,6 +27,7 @@ const creditCardDataValidation = {
 	[paymentCreditCardFields.NUMBER_INSTALLMENTS]: yup.string().required('Number of installments is required'),
 	[paymentCreditCardFields.CITY]: yup.string().required('City address is required'),
 	[paymentCreditCardFields.DELIVERY_ADDRESS]: yup.string().required('Delivery address is required'),
+	[paymentCreditCardFields.TERMS_CONDICTIONS]: yup.boolean().oneOf([true], 'Terms and conditions must be accepted'),
 };
 
 const creditCardDataSchema = yup.object().shape(creditCardDataValidation);

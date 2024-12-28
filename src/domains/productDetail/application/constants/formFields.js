@@ -14,6 +14,7 @@ export const paymentCreditCardFields = Object.freeze({
 	NUMBER_INSTALLMENTS: 'number_installments',
 	CITY: 'shipping_address_city',
 	DELIVERY_ADDRESS: 'shipping_addrs_line',
+	TERMS_CONDICTIONS: 'terms_and_conditions',
 });
 
 export const products = [
@@ -50,3 +51,4 @@ export const products = [
 
 export const VISA_REGEX = /^4[0-9]{12}(?:[0-9]{3})?$/;
 export const MASTERCARD_REGEX = /^5[1-5][0-9]{14}$/;
+export const TERMS_CONDICTIONS_LINK = 'https://wompi.com/assets/downloadble/reglamento-Usuarios-Colombia.pdf';
