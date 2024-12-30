@@ -7,15 +7,15 @@ const HeroDetails = ({ product }) => {
 	return (
 		<div className="hero-details-container">
 			<img
-				src={product.image || 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban2.png'}
-				alt={product.title}
+				src={product?.image || 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban2.png'}
+				alt={product?.title}
 				className="product-img"
 			/>
 			<section className="hero-details">
 				<ButtonBack />
 				<div className="hero-stock-contianer">
 					<p className="text">Stock</p>
-					<p className="stock">{product.stock || '10'}</p>
+					<p className="stock">{product?.stock || '10'}</p>
 				</div>
 			</section>
 		</div>

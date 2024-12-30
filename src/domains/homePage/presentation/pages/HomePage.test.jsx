@@ -1,34 +1,29 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Provider, useDispatch } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { getProducts } from '../../application/slices/products';
+import { useDispatch, useSelector, Provider } from 'react-redux';
 import HomePage from './index';
+import { getProducts } from '../../application/slices/products';
 
-// Configuración del mock de Redux
+// Mock de subcomponentes
+jest.mock('../../../../shared/presentation/components/Navbar', () => () => <div data-testid="navbar">Navbar Mock</div>);
+jest.mock('../components/CategoryList', () => () => <div data-testid="category-list">CategoryList Mock</div>);
+jest.mock('../../../../shared/presentation/components/ProductCard', () => {
+	const ProductCardMock = ({ productName }) => <div data-testid="product-card">{productName}</div>;
+	return ProductCardMock;
+});
+
+// Mock de Redux
 jest.mock('react-redux', () => ({
 	...jest.requireActual('react-redux'),
 	useDispatch: jest.fn(),
+	useSelector: jest.fn(),
 }));
 
 jest.mock('../../application/slices/products', () => ({
 	getProducts: jest.fn(),
 }));
-
-jest.mock('../../../../shared/presentation/components/Navbar', () => () => <div data-testid="navbar">Navbar Mock</div>);
-jest.mock('../components/CategoryList', () => () => <div data-testid="category-list">CategoryList Mock</div>);
-
-jest.mock('../../../../shared/presentation/components/ProductCard', () => {
-	// eslint-disable-next-line global-require
-	const PropTypes = require('prop-types');
-	const ProductCardMock = ({ productName }) => <div data-testid="product-card">{productName}</div>;
-
-	ProductCardMock.propTypes = {
-		productName: PropTypes.string.isRequired,
-	};
-
-	return ProductCardMock;
-});
 
 describe('HomePage Component', () => {
 	const mockStore = configureStore([]);
@@ -39,58 +34,60 @@ describe('HomePage Component', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should render the component correctly', () => {
+	it('should render the HomePage with Navbar, CategoryList, and products', () => {
 		const store = mockStore({});
+		useSelector.mockReturnValue([
+			{ id: 1, title: 'Ichiban Electric 2032', price: 34000000, image: 'ichiban.jpg' },
+			{ id: 2, title: 'Jaguar CX-R1', price: 48000000, image: 'jaguar.jpg' },
+			{ id: 3, title: 'Honda CRX 500', price: 22000000, image: 'honda.jpg' },
+		]);
+
 		render(
 			<Provider store={store}>
 				<HomePage />
 			</Provider>,
 		);
 
-		// Verificar que los subcomponentes están presentes
+		// Verifica que los subcomponentes estén presentes
 		expect(screen.getByTestId('navbar')).toBeInTheDocument();
 		expect(screen.getByTestId('category-list')).toBeInTheDocument();
-		expect(screen.getAllByTestId('product-card')).toHaveLength(4); // 1 principal + 3 mini cards
+
+		// Verifica que se renderiza el primer producto en el carrusel
+		expect(screen.getByText('Ichiban Electric 2032')).toBeInTheDocument();
+
+		// Verifica que se renderizan las tarjetas de productos populares
+		expect(screen.getAllByTestId('product-card')).toHaveLength(3);
+		expect(screen.getByText('Jaguar CX-R1')).toBeInTheDocument();
+		expect(screen.getByText('Honda CRX 500')).toBeInTheDocument();
 	});
 
 	it('should dispatch getProducts on mount', () => {
 		const store = mockStore({});
+		useSelector.mockReturnValue([]);
+
 		render(
 			<Provider store={store}>
 				<HomePage />
 			</Provider>,
 		);
 
-		// Verificar que se llama a dispatch con getProducts
+		// Verifica que `dispatch` se llama con la acción `getProducts`
 		expect(mockDispatch).toHaveBeenCalledTimes(1);
 		expect(getProducts).toHaveBeenCalled();
 	});
 
 	it('should render the hero section with correct text', () => {
 		const store = mockStore({});
+		useSelector.mockReturnValue([]);
+
 		render(
 			<Provider store={store}>
 				<HomePage />
 			</Provider>,
 		);
 
-		// Verificar los textos de la sección Hero
+		// Verifica los textos del hero section
 		expect(screen.getByText('Explore')).toBeInTheDocument();
 		expect(screen.getByText('The best & favorite motorcycle')).toBeInTheDocument();
-	});
-
-	it('should render the product card with the correct props', () => {
-		const store = mockStore({});
-		render(
-			<Provider store={store}>
-				<HomePage />
-			</Provider>,
-		);
-
-		// Verificar el contenido de la tarjeta de producto principal
-		expect(screen.getByText('ICHIBAN Electric 2032')).toBeInTheDocument();
-		expect(screen.getByText('CXTBR')).toBeInTheDocument();
-		expect(screen.getByText('MBWS')).toBeInTheDocument();
-		expect(screen.getByText('Jaguar')).toBeInTheDocument();
 	});
 });

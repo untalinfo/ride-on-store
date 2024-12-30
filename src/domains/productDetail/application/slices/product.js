@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getProductByIdRequest, postCreateOrderRequest } from '../../infrastructure/api';
 
 export const initialState = {
-	product: [],
+	product: {},
 	error: null,
 	response: false,
 	shippingData: [],
@@ -47,7 +47,7 @@ const Product = createSlice({
 			state.error = payload;
 		},
 		[getProductById.fulfilled]: (state, { payload }) => {
-			state.arrayProducts = payload;
+			state.product = payload;
 		},
 		[postCreateOrder.pending]: (state) => {
 			state.error = null;

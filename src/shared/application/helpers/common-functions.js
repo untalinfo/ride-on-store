@@ -5,9 +5,9 @@ export const importFiles = async (importPaths) => {
 };
 
 export function formatNumberWithDots(numberString) {
-	const [integerPart, decimalPart] = numberString.split('.');
+	const [integerPart, decimalPart] = numberString?.split('.');
 
-	const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	const formattedIntegerPart = integerPart?.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
 	const formattedDecimalPart = decimalPart ? `.${decimalPart}` : '';
 

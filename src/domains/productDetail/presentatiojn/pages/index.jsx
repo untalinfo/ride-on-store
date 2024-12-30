@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import './ProductDetailPage.scss';
 import Button from '../../../../shared/presentation/components/Button';
@@ -12,23 +12,14 @@ import Modal from '../../../../shared/presentation/components/Modal';
 import FormPersonalData from '../components/Forms/FormPersonalData';
 import CreditCardForm from '../components/Forms/CreditCardForm';
 import { getProductById } from '../../application/slices/product';
-
-const PRODUCT = {
-	id: 'f65daf7c-d6d7-4b7d-9524-fac8f8894836',
-	title: 'ICHIBAN Electric 2032',
-	image: 'https://ride-on-store.s3.us-east-2.amazonaws.com/ichiban.png',
-	price: '3400000',
-	description:
-		"Ichiban isn't simply a mode of transport; it's an escape, a liberating streak of freedom in an excessively interconnected world.",
-	stock: 13,
-	created_at: '2024-12-24T20:39:49.521Z',
-};
+import { getProductSelector } from '../../application/selectors/product';
 
 const ProductDetailPage = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenCredit, setIsOpenCredit] = useState(false);
 	const dispatch = useDispatch();
 	const { productId } = useParams();
+	const product = useSelector(getProductSelector);
 
 	const handleShowModal = () => {
 		setIsOpen(true);
@@ -45,15 +36,15 @@ const ProductDetailPage = () => {
 
 	return (
 		<div className="product-detail-page">
-			<HeroDetails product={PRODUCT} />
+			<HeroDetails product={product} />
 			<section className="product-description">
-				<h1 className="title">{PRODUCT.title}</h1>
-				<p className="description">{PRODUCT.description}</p>
+				<h1 className="title">{product?.title}</h1>
+				<p className="description">{product?.description}</p>
 			</section>
 			<CharacteristicItems characteristics={CHARACTERISTIC_ITEM} />
 			<section className="price-version">
 				<div className="left-container">
-					<p className="price">{`$ ${formatNumberWithDots(PRODUCT.price)}`}</p>
+					<p className="price">{`$ ${product.price && formatNumberWithDots(product.price?.toString())}`}</p>
 					<p className="text">Ex-showroom price</p>
 				</div>
 				<div className="right-container">
@@ -75,7 +66,7 @@ const ProductDetailPage = () => {
 				showClose={false}
 				contentStyle={{ height: 'min-content' }}
 			>
-				<CreditCardForm productId={PRODUCT.id} />
+				<CreditCardForm productId={product?.id} />
 			</Modal>
 		</div>
 	);

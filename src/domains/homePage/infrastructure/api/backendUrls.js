@@ -1,3 +1,5 @@
-export const urlGetProducts = `https://ead5-181-54-0-246.ngrok-free.app/products`;
+import { urlBase } from '../../../../shared/infrastructure/api/apiHandler';
+
+export const urlGetProducts = `${urlBase}products`;
 
 export default { urlGetProducts };
