@@ -24,6 +24,7 @@
 		> .product-card__info {
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 			position: absolute;
 			bottom: 40px;
 			left: 30px;
@@ -45,9 +46,19 @@
 			}
 
 			> .icon-redirection {
-				font-size: 2rem;
+				font-size: 3rem;
 				font-weight: 700;
 				cursor: pointer;
+				animation: glow 1.5s infinite alternate;
+
+				@keyframes glow {
+					from {
+						text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000, 0 0 25px #ff0000;
+					}
+					to {
+						text-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, 0 0 30px #ff4500, 0 0 40px #ff4500, 0 0 50px #ff4500;
+					}
+				}
 
 				&:hover {
 					@extend .color-primary;

@@ -4,6 +4,8 @@ import ReadyPage from '../../domains/readyPage/presentantion/pages';
 
 const Router = () => {
 	const [routes, setRoutes] = useState([]);
+	const defaultLayout = ({ children }) => <>{children}</>;
+	const [isInitialLoad, setIsInitialLoad] = useState(!localStorage.getItem('hasLoaded'));
 
 	useEffect(() => {
 		const importRouter = import.meta.glob('../../domains/**/infrastructure/routing/router.*');
@@ -16,9 +18,6 @@ const Router = () => {
 
 		loadRoutes();
 	}, []);
-	const [isInitialLoad, setIsInitialLoad] = useState(!localStorage.getItem('hasLoaded'));
-
-	const defaultLayout = ({ children }) => <>{children}</>;
 
 	useEffect(() => {
 		if (isInitialLoad) {

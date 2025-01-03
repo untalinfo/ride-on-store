@@ -1,7 +1,7 @@
 export const personalDataFields = Object.freeze({
-	FULL_NAME: 'full_name',
-	EMAIL: 'email',
-	PHONE: 'phone_number',
+	FULL_NAME: 'customer_full_name',
+	EMAIL: 'customer_email',
+	PHONE: 'customer_phone_number',
 });
 
 export const paymentCreditCardFields = Object.freeze({
@@ -14,6 +14,10 @@ export const paymentCreditCardFields = Object.freeze({
 	NUMBER_INSTALLMENTS: 'number_installments',
 	CITY: 'shipping_address_city',
 	DELIVERY_ADDRESS: 'shipping_addrs_line',
+	TERMS_CONDICTIONS: 'terms_and_conditions',
+	EXP_MONTH: 'card_exp_month',
+	EXP_YEAR: 'card_exp_year',
+	PRODUCT_IDS: 'product_ids',
 });
 
 export const products = [
@@ -50,3 +54,4 @@ export const products = [
 
 export const VISA_REGEX = /^4[0-9]{12}(?:[0-9]{3})?$/;
 export const MASTERCARD_REGEX = /^5[1-5][0-9]{14}$/;
+export const TERMS_CONDICTIONS_LINK = 'https://wompi.com/assets/downloadble/reglamento-Usuarios-Colombia.pdf';

@@ -18,13 +18,13 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 	// const dispatch = useDispatch();
 	const dataForm = useSelector(shippingDataSelector);
 
-	console.log('here', dataForm);
-
 	const defaultValues = {
-		[personalDataFields.FULL_NAME]: dataForm.full_name || '',
-		[personalDataFields.EMAIL]: dataForm.email || '',
-		[personalDataFields.PHONE]: dataForm.phone_number || '',
+		[personalDataFields.FULL_NAME]: dataForm[personalDataFields.FULL_NAME] || '',
+		[personalDataFields.EMAIL]: dataForm[personalDataFields.EMAIL] || '',
+		[personalDataFields.PHONE]: dataForm[personalDataFields.PHONE] || '',
 	};
+
+	console.log('defaultValues', defaultValues);
 	const {
 		register,
 		handleSubmit,
@@ -42,7 +42,6 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 	};
 
 	const onSubmit = (data) => {
-		console.log(data);
 		dispatch(setDataForm(data));
 		handleShowModalCredit();
 	};

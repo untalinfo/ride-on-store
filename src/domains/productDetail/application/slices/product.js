@@ -1,18 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getProductByIdRequest, postCreateOrderRequest } from '../../infrastructure/api';
+import { getProductByIdRequest, postCreateCardTokenRequest, postCreateOrderRequest } from '../../infrastructure/api';
 
 export const initialState = {
-	product: [],
+	product: {},
 	error: null,
-	response: false,
+	responseOrder: {},
 	shippingData: [],
-	order: {},
 	isLoading: false,
+	responseCarToken: {},
 };
 
 export const getProductById = createAsyncThunk('product/getProductById', async (productId, { rejectWithValue }) => {
 	try {
 		const response = await getProductByIdRequest(productId);
+		return response;
+	} catch (error) {
+		return rejectWithValue(error);
+	}
+});
+
+export const postCreateCardToken = createAsyncThunk('product/createCardToken', async (data, { rejectWithValue }) => {
+	try {
+		const response = await postCreateCardTokenRequest(data);
 		return response;
 	} catch (error) {
 		return rejectWithValue(error);
@@ -47,7 +56,20 @@ const Product = createSlice({
 			state.error = payload;
 		},
 		[getProductById.fulfilled]: (state, { payload }) => {
-			state.arrayProducts = payload;
+			state.product = payload;
+		},
+		[postCreateCardToken.pending]: (state) => {
+			state.error = null;
+			state.isLoading = true;
+		},
+		[postCreateCardToken.rejected]: (state, { payload }) => {
+			state.error = payload;
+			state.isLoading = false;
+		},
+		[postCreateCardToken.fulfilled]: (state, { payload }) => {
+			state.order = payload;
+			state.isLoading = false;
+			state.responseCarToken = payload;
 		},
 		[postCreateOrder.pending]: (state) => {
 			state.error = null;
@@ -58,8 +80,8 @@ const Product = createSlice({
 			state.isLoading = false;
 		},
 		[postCreateOrder.fulfilled]: (state, { payload }) => {
-			state.order = payload;
 			state.isLoading = false;
+			state.responseOrder = payload;
 		},
 	},
 });

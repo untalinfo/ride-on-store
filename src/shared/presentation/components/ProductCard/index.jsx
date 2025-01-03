@@ -22,7 +22,7 @@ const ProductCard = ({ isMini, urlRedirection, productImg, productName, productP
 					<div className="product-card__info">
 						<div className="text-container">
 							<h3 className="product-name">{productName}</h3>
-							<p className="price">{`$ ${formatNumberWithDots(productPrice)}`}</p>
+							<p className="price">{`$ ${productPrice && formatNumberWithDots(productPrice.toString())}`}</p>
 						</div>
 						<i className={`${ARROW_RIGHT_ICON} icon-redirection`} onClick={handleRedirection} />
 					</div>

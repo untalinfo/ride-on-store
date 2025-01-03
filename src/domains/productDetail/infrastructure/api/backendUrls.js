@@ -1,6 +1,8 @@
-export const urlGetProductById = (productId = ':productId') =>
-	`https://ead5-181-54-0-246.ngrok-free.app/products/${productId}`;
+import { urlBase } from '../../../../shared/infrastructure/api/apiHandler';
 
-export const urlCreateOrder = () => `create-order`;
+export const urlGetProductById = (productId = ':productId') => `${urlBase}products/${productId}`;
+export const urlPostCreateCardToken = () => `${urlBase}orders/token/cards`;
+
+export const urlCreateOrder = () => `${urlBase}orders/`;
 
 export default { urlGetProductById };

@@ -2,27 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './DeliveryDetails.scss';
 
-const DeliveryDetails = ({ delivery }) => {
+const DeliveryDetails = ({ data }) => {
 	return (
 		<section className="delivery-details-container">
 			<p className="title">Delivery address</p>
-			<p className="address">{delivery.deliveryAddress}</p>
-			<p className="city">{delivery.deliveryCity}</p>
+			<p className="address">{data?.shipping_addrs_line}</p>
+			<p className="city">{data?.shipping_address_city}</p>
 		</section>
 	);
 };
 
-DeliveryDetails.defaultProps = {
-	delivery: {
-		deliveryCity: 'cali',
-		deliveryAddress: 'Calle 123',
-	},
-};
 DeliveryDetails.propTypes = {
-	delivery: PropTypes.shape({
-		deliveryCity: PropTypes.string,
-		deliveryAddress: PropTypes.string,
-	}),
+	data: PropTypes.object,
 };
 
 export default DeliveryDetails;
