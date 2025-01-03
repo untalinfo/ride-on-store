@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js';
 import React from 'react';
+import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import ClipLoader from 'react-spinners/BeatLoader';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,14 +14,15 @@ import {
 import creditCardDataSchema from '../../../../application/schema/creditCardData';
 import Button from '../../../../../../shared/presentation/components/Button';
 import { ARROW_RIGHT_ICON } from '../../../../../../shared/application/constants/icons';
-import { setDataForm } from '../../../../application/slices/product';
+import { postCreateCardToken, postCreateOrder, setDataForm } from '../../../../application/slices/product';
 import { history } from '../../../../../../shared/application/helpers/history';
 import { paymentSummaryRoute } from '../../../../../paymentSummary/infrastructure/routing/routes';
 import './CreditCardForm.scss';
 import { isLoadingOrderSelector, shippingDataSelector } from '../../../../application/selectors/product';
 import { MASTERCARD_ICON, VISA_ICON } from '../../../../application/constants/icons';
+import { PERSONAL_DATA_TYPE, refactorDataForms } from '../../../../application/helpers/refactorDataForms';
 
-const CreditCardForm = ({ productId }) => {
+const CreditCardForm = ({ productId, onClose }) => {
 	const dispatch = useDispatch();
 	const dataForm = useSelector(shippingDataSelector);
 	const isLoading = useSelector(isLoadingOrderSelector);
@@ -40,12 +42,34 @@ const CreditCardForm = ({ productId }) => {
 		control,
 	} = useForm({ defaultValues, mode: 'onChange', resolver: yupResolver(creditCardDataSchema) });
 
-	const onSubmit = (data) => {
-		delete data[paymentCreditCardFields.NUMBER];
-		delete data[paymentCreditCardFields.CVC];
-		delete data[paymentCreditCardFields.EXPIRY];
-		dispatch(setDataForm(data));
-		history.push(paymentSummaryRoute(productId));
+	const onSubmit = async (data) => {
+		try {
+			const refactorData = refactorDataForms(data);
+			const { payload } = await dispatch(postCreateCardToken(refactorData));
+
+			if (payload?.hasError) {
+				throw new Error(payload?.message);
+			}
+
+			data[paymentCreditCardFields.PRODUCT_IDS] = [productId];
+			data = { ...data, ...dataForm };
+			const refactorDataOrder = refactorDataForms(data, PERSONAL_DATA_TYPE);
+			const createOrder = await dispatch(postCreateOrder(refactorDataOrder));
+
+			if (createOrder?.payload?.hasError) {
+				throw new Error(createOrder?.payload?.message);
+			}
+
+			history.push(paymentSummaryRoute(productId));
+		} catch (error) {
+			onClose();
+			toast.error(`Error: ${error.message}`, { duration: 4000, position: 'top-center' });
+		} finally {
+			delete data[paymentCreditCardFields.NUMBER];
+			delete data[paymentCreditCardFields.CVC];
+			delete data[paymentCreditCardFields.EXPIRY];
+			dispatch(setDataForm(data));
+		}
 	};
 
 	const handleExpirationDateInput = (event) => {
@@ -231,6 +255,7 @@ const CreditCardForm = ({ productId }) => {
 
 CreditCardForm.propTypes = {
 	productId: PropTypes.string.isRequired,
+	onClose: PropTypes.func.isRequired,
 };
 
 export default CreditCardForm;

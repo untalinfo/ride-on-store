@@ -19,10 +19,12 @@ const FormPersonalData = ({ handleShowModalCredit }) => {
 	const dataForm = useSelector(shippingDataSelector);
 
 	const defaultValues = {
-		[personalDataFields.FULL_NAME]: dataForm.full_name || '',
-		[personalDataFields.EMAIL]: dataForm.email || '',
-		[personalDataFields.PHONE]: dataForm.phone_number || '',
+		[personalDataFields.FULL_NAME]: dataForm[personalDataFields.FULL_NAME] || '',
+		[personalDataFields.EMAIL]: dataForm[personalDataFields.EMAIL] || '',
+		[personalDataFields.PHONE]: dataForm[personalDataFields.PHONE] || '',
 	};
+
+	console.log('defaultValues', defaultValues);
 	const {
 		register,
 		handleSubmit,

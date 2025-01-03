@@ -1,7 +1,7 @@
 export const personalDataFields = Object.freeze({
-	FULL_NAME: 'full_name',
-	EMAIL: 'email',
-	PHONE: 'phone_number',
+	FULL_NAME: 'customer_full_name',
+	EMAIL: 'customer_email',
+	PHONE: 'customer_phone_number',
 });
 
 export const paymentCreditCardFields = Object.freeze({
@@ -15,6 +15,9 @@ export const paymentCreditCardFields = Object.freeze({
 	CITY: 'shipping_address_city',
 	DELIVERY_ADDRESS: 'shipping_addrs_line',
 	TERMS_CONDICTIONS: 'terms_and_conditions',
+	EXP_MONTH: 'card_exp_month',
+	EXP_YEAR: 'card_exp_year',
+	PRODUCT_IDS: 'product_ids',
 });
 
 export const products = [

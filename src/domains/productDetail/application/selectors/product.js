@@ -14,6 +14,6 @@ export const isLoadingOrderSelector = createSelector(productState, (product) => 
 	return product?.isLoading;
 });
 
-export const orderSelector = createSelector(productState, (product) => {
-	return product?.order;
+export const orderDataSelector = createSelector(productState, (product) => {
+	return product?.responseOrder?.data;
 });

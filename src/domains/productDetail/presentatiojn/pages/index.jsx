@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import './ProductDetailPage.scss';
@@ -36,6 +37,7 @@ const ProductDetailPage = () => {
 
 	return (
 		<div className="product-detail-page">
+			<Toaster />
 			<HeroDetails product={product} />
 			<section className="product-description">
 				<h1 className="title">{product?.title}</h1>
@@ -66,7 +68,7 @@ const ProductDetailPage = () => {
 				showClose={false}
 				contentStyle={{ height: 'min-content' }}
 			>
-				<CreditCardForm productId={product?.id} />
+				<CreditCardForm productId={product?.id} onClose={() => setIsOpenCredit(false)} />
 			</Modal>
 		</div>
 	);
